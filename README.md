@@ -1,4 +1,4 @@
-# Hacks-Facebook
+# Facebook Hacks
 Some tools to make your community manager's life easier
 
 Par [WebCreatid] (http://webcreatid.com)  
