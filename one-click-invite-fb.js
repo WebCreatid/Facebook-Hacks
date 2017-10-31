@@ -10,12 +10,21 @@ function sleep(delay) {
 }
 
 var total = 0;
+var limit = 250;
+var delay = Math.floor(Math.random()*10000);
 var $btn = jQuery('.fbProfileBrowserResult a.uiButton._1sm span');
+var total_friends = $btn.length;
+var total_script = total_friends;
+if(limit<total_friends){
+    total_script = limit;
+    console.log("%cYou have too much friends ("+total_friends+") to invite today.\nSo only "+limit+" friends will be invited by this script today.\nAfter the script finish run it again tomorrow.\n%c But don't try to run it again today. \n Your account will probably be blocked by Facebook ", 'background: #222; color: #bada55;font-size:18px;', 'background: #ff0000; color: #000; font-weight:bold;font-size:22px;');
+}
 $btn.each(function(index, elem){
+   if(total>=limit){ retrun false; }
    rand = Math.floor(Math.random()*1000);
    jQuery(this).click();
-   sleep(3000+rand);
+   sleep(delay+rand);
    total++;
-   console.log(total+"/"+$btn.length+" friends invited");
+   console.log(total+"/"+total_script+" friends invited");
 });
-console.log(total);
+console.log("Congratulations your "+total_script+" friends have been invited", 'background: #222; color: #bada55;font-size:18px;');
