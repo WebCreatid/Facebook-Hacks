@@ -20,7 +20,7 @@ if(limit<total_friends){
     console.log("%cYou have too much friends ("+total_friends+") to invite today.\nSo only "+limit+" friends will be invited by this script today.\nAfter the script finish run it again tomorrow.\n%c But don't try to run it again today. \n Your account will probably be blocked by Facebook ", 'background: #222; color: #bada55;font-size:18px;', 'background: #ff0000; color: #000; font-weight:bold;font-size:22px;');
 }
 $btn.each(function(index, elem){
-   if(total>=limit){ retrun false; }
+   if(total>=limit){ return false; }
    rand = Math.floor(Math.random()*1000);
    jQuery(this).click();
    sleep(delay+rand);
