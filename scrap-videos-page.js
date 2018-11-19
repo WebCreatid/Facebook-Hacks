@@ -44,6 +44,7 @@ window.scrollTo(0,document.body.scrollHeight);
 
 var scrollInterval = setInterval(function(){
 	if(last_height != document.body.scrollHeight){
+		last_height = document.body.scrollHeight;
 		window.scrollTo(0,document.body.scrollHeight);
 	}else{
 		clearInterval(scrollInterval);
@@ -73,7 +74,7 @@ function scrap_all_videos(){
 		video_duration = jQuery(elem).find('._5ig6._50f3').text();
 		video_thumbnail = jQuery(elem).find('._46-i.img').attr('src');
 		videos.push({
-	        title: video_title,
+	        title: video_title.replace(/,/g, ''),
 		    url: video_url,
 		    views: video_views,
 		    date: video_date,
