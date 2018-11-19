@@ -47,10 +47,13 @@ var scrollInterval = setInterval(function(){
 		last_height = document.body.scrollHeight;
 		window.scrollTo(0,document.body.scrollHeight);
 	}else{
-		clearInterval(scrollInterval);
+		console.log('end ScrollInterval');
+		StopScrollInterval();
 		scrap_all_videos();
 	}
 }, 1500);
+
+function StopScrollInterval(){ clearInterval(scrollInterval); }
 
 function scrap_all_videos(){
 	var videos = [];
@@ -77,7 +80,7 @@ function scrap_all_videos(){
 	        title: video_title.replace(/,/g, ''),
 		    url: video_url,
 		    views: video_views,
-		    date: video_date,
+		    date: video_date.replace(/,/g, '-'),
 		    duration: video_duration,
 		    thumbnail: video_thumbnail
 	    });
