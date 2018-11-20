@@ -10,7 +10,7 @@ function convertToCSV(objArray){
     for(var i = 0; i < array.length; i++){
         var line = '';
         for(var index in array[i]){
-            if (line != '') line += ','
+            if (line != '') line += ';'
 
             line += array[i][index];
         }
@@ -47,7 +47,6 @@ var scrollInterval = setInterval(function(){
 		last_height = document.body.scrollHeight;
 		window.scrollTo(0,document.body.scrollHeight);
 	}else{
-		console.log('end ScrollInterval');
 		StopScrollInterval();
 		scrap_all_videos();
 	}
@@ -70,7 +69,12 @@ function scrap_all_videos(){
 		video_url = 'https://www.facebook.com'+jQuery(elem).find('._5asl > a').attr('href');
 		video_title = jQuery(elem).find('._3v4h._48gm._50f3._50f7 > a').text();
 		if(video_title==''){ video_title = 'No title'; }
-		video_views = jQuery(elem).find('.fsm.fwn.fcg > .fcg').text().replace(" views", "").replace(" vues", "").replace(" view", "").replace(" vue", "");
+		video_views = jQuery(elem).find('.fsm.fwn.fcg > .fcg').text().replace(" views", "").replace(" vues", "").replace(" view", "").replace(" vue", "").replace(',','.').replace(' ','');
+		if(video_views[video_views.length-1]=='M'){
+			video_views = parseFloat(video_views.replace('M',''))*1000000;
+		}else if(video_views[video_views.length-1]=='K'){
+			video_views = parseFloat(video_views.replace('K',''))*1000;
+		}
 		video_date = jQuery(elem).find('.fsm.fwn.fcg').clone();
 		video_date.find('.fcg, [role="presentation"]').empty();
 		video_date = video_date.text();
