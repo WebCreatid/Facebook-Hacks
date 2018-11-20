@@ -39,6 +39,7 @@ function exportCSVFile(headers, items, fileTitle){
     }
 }
 
+var last_check = false;
 var last_height = document.body.scrollHeight;
 window.scrollTo(0,document.body.scrollHeight);
 
@@ -47,8 +48,11 @@ var scrollInterval = setInterval(function(){
 		last_height = document.body.scrollHeight;
 		window.scrollTo(0,document.body.scrollHeight);
 	}else{
-		StopScrollInterval();
-		scrap_all_videos();
+		if(last_check){	
+			StopScrollInterval();
+			scrap_all_videos();
+		}
+		last_check = true;
 	}
 }, 1500);
 
@@ -79,6 +83,18 @@ function scrap_all_videos(){
 		video_date.find('.fcg, [role="presentation"]').empty();
 		video_date = video_date.text();
 		video_duration = jQuery(elem).find('._5ig6._50f3').text();
+		video_duration = video_duration.split(":");
+		secondes = 0;
+		var i;
+		for(i = 0; i < video_duration.length; i++){
+			puissance = video_duration.length-i-1;
+			if(puissance!=0){
+				secondes += parseInt(video_duration[i]*Math.pow(60,puissance));
+			}else{
+				secondes += parseInt(video_duration[i]);
+			}
+		}
+		video_duration = secondes;
 		video_thumbnail = jQuery(elem).find('._46-i.img').attr('src');
 		videos.push({
 	        title: video_title.replace(/,/g, ''),
